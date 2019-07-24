@@ -16,7 +16,7 @@ def adapt_model(modelName, meshName, adapt_tstep, nadapt_ii):
     dirpath = os.getcwd()
     out_mesh_dir = dirpath + 'adapt_' + nadapt_ii + '/mesh-complete/'
     os.mkdir(out_mesh_dir, 0)
-    out_mesh_file = dirpath + 'adapt_' + nadapt_ii + '/adapt_' + nadapt_ii + '.sms']
+    out_mesh_file = dirpath + 'adapt_' + nadapt_ii + '/adapt_' + nadapt_ii + '.sms'
     solid_file = dirpath + modelName + '.xmt_txt'
     if nadapt_ii == 1:
         sms_mesh_file = dirpath + meshName + '.sms'
@@ -43,6 +43,7 @@ def adapt_model(modelName, meshName, adapt_tstep, nadapt_ii):
     print('Running the adaptor...')
     adapt_newObject -result $adaptobject # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
 
+    # ------------------------- Don't know how to do any of these ------------------------- #
     $adaptobject CreateInternalMeshObject -meshfile $sms_mesh_file -solidfile $solid_file
     $adaptobject LoadMesh -file $vtu_mesh_file
     $adaptobject SetAdaptOptions -flag strategy -value 2
@@ -60,12 +61,14 @@ def adapt_model(modelName, meshName, adapt_tstep, nadapt_ii):
     $adaptobject WriteAdaptedSolution -file $out_solution
     $adaptobject WriteAdaptedMesh -file $out_mesh_file
     mesh = '/adapt/internal/meshobject'
+    # ------------------------------------------------------------------------------------- #
+
     #Read model file as a solid object to write out meshsim mesh related files
     try:
         Repository.List(modelName)
     except:
         print('Resulted an error')
-    solid_readNative -file $solid_file -obj $modelName # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
-    mesh_writeCompleteMesh $mesh $modelName mesh-complete $out_mesh_dir # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
-    os.chdir(out_mesh_dir) # below ??
-    cd $out_mesh_dir/.. # <><><><><><><><><><><><><><><><><><><><><><><><><><> #
+    solid_readNative(solid_file, modelName)
+    mesh_writeCompleteMesh(mesh, modelName, mesh-complete, out_mesh_dir)
+    os.chdir(out_mesh_dir)
+# end of adapt_model
