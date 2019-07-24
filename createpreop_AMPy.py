@@ -86,20 +86,21 @@ def createPREOPmodelCreateModel_AM():
 
     shortname = createPREOPgrpKeptSelections[0]
     cursolid = gLoftedSolids[shortname]
-    solid_copy -src $cursolid -dst $modelname  # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
-    print('copy $cursolid to preop model.'),
+    Geom.Copy(cursolid, modelname)
+    print('copy ' + cursolid + 'to preop model.')
 
     for x in range(1, createPREOPgrpKeptSelections.len()-1)
         cursolid = gLoftedSolids[x]
-        print('union ' + cursolid + ' into preop model.')'
+        print('union ' + cursolid + ' into preop model.')
         if cursolid != 'SolidModel':
-            print('Warning: ' + cursolid + ' is being ignored.')'
-        # ----------------- Confused what this is doing ----------------- #
-        solid_union -result /tmp/preop/$modelname -a $modelname -b $cursolid # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
+            print('Warning: ' + cursolid + ' is being ignored.')
+
+        srcFile = '/tmp/preop/' + modelname
+        dst = modelname
+        Geom.Union(srcFile, dst, cursolid)
         Repository.Delete(modelname)
-        solid_copy -src /tmp/preop/$modelname -dst $modelname # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
+        Geom.Copy(srcFile, dst)
         Repository.Delete('/tmp/preop/' + modelname)
-        # --------------------------------------------------------------- #
     repoList = Repository.List()
     for item in repoList:
         if item == ('/tmp/preop/' + modelname):
