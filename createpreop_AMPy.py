@@ -3,18 +3,18 @@
 
 # Procedure: createPREOPgrpKeepSel
 def createPREOPgrpKeepSel_AM():
-    createPREOPgrpKeptSelections = None
-    symbolicName = None
+    createPREOPgrpKeptSelections = []
+    symbolicName = ''
     # createPREOPgrpKeptSelections = symbolicName[createPREOPgrpCurLB] get 0 end] # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Don't know the argument inputs
 
 # end of createPREOPgrpKeepSel_AM
 
 def createPREOPmodelCreateModel_AM():
-    symbolicName = None
+    symbolicName = ''
     createPREOPgrpKeptSelections = []
-    gFilenames = None
-    gObjects = None
-    gLoftedSolids = None
+    # gFilenames = None # Not used anywhere so comment out
+    gObjects = []
+    gLoftedSolids = []
 
     modelname = gObjects[preop_solid]
 
@@ -37,8 +37,7 @@ def createPREOPmodelCreateModel_AM():
 
 
     # for convenience, we offer to make any missing solid models for the
-    # the user.  In general, people shouldn't do this, but what can you
-    # do?
+    # the user.  In general, people shouldn't do this, but what can you do?
     for i in createPREOPgrpKeptSelections:
         cursolid = ""
         try:
@@ -57,7 +56,7 @@ def createPREOPmodelCreateModel_AM():
                         print('Resulted in error')
                     if cursolid == "" or (path.exists(cursolid) == False):
                         # loft solid from group
-                        gPathBrowser = None
+                        gPathBrowser = []
                         keepgrp = gPathBrowser[currGroupName]
                         gPathBrowser[currGroupName] = j
                         #print('align')
@@ -119,3 +118,6 @@ import shutil
 import os
 import sys
 from sv import *
+
+createPREOPgrpKeepSel_AM()
+createPREOPmodelCreateModel_AM():

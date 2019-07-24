@@ -7,10 +7,7 @@ import os
 import sys
 
 def GenSolid():
-    # Global variables that are???
-    nmodel_ii = None
-    model_type = None
-
+    nmodel_ii = 1
     model_type = 'indiv2'
     scaleFactor = 1.0 # scale factor for final geometry
 
@@ -26,24 +23,24 @@ def GenSolid():
     for groupName in allGroups:
         groupAddress[groupName] = top + '/' + groupName
 
-    # ------- BOILERPLATE : INCLUDE GLOBAL VARIABLES # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables, not sure of type and in Tcl they're 'global'
-    gRen3d = None
-    gRen3dCopies = None
-    gPathBrowser = None # Seems to be a list
-    gOptions = None
-    gFilenames = None # Seems to be a list
-    symbolicName = None
-    createPREOPgrpKeptSelections = None
-    # createPREOPgrpCurLB set gRen3dCopies 1 # IDK what to do here, not sure of function arguments # <><><><><><><><><><><><><><><><><><><><><><><><><><> #
-    gObjects = None
-    gLoftedSolids = None
+    # ------- BOILERPLATE : INCLUDE GLOBAL VARIABLES
+    gRen3d = None # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables
+    gRen3dCopies = None # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables
+    gPathBrowser = []
+    gOptions = []
+    gFilenames = []
+    symbolicName = ''
+    createPREOPgrpKeptSelections = []
+    # createPREOPgrpCurLB set gRen3dCopies 1 # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables
+    gObjects = []
+    gLoftedSolids = [] # Not used anywhere I can see
 
     # ------- SET SOLID AND MESH KERNELS
     solid_setKernel('Parasolid')
     mesh_setKernel('MeshSim')
     gOptions[meshing_kernel] = 'MeshSim'
     gOptions[meshing_solid_kernel] = 'Parasolid'
-    temp = None
+    temp = ''
     temp.append(cabg11_)
     temp.append(model_type)
     temp.append(_)
@@ -140,7 +137,7 @@ def GenSolid():
     # Used adaptive meshing (Not available in open source simV), so focus on the solid model for now ------------------------------------------------------------------------------------------------------------------------
 
 
-
+# end of GenSolid
 
 
 ############################################
