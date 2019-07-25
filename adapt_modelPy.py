@@ -41,27 +41,27 @@ def adapt_model(modelName, meshName, adapt_tstep, nadapt_ii):
     gOptions[meshing_solid_kernel] = Parasolid
     gFilenames = solid_file
     print('Running the adaptor...')
-    adapt_newObject -result $adaptobject # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate this
-
-    # ------------------------- Don't know how to do any of these ------------------------- #
-    $adaptobject CreateInternalMeshObject -meshfile $sms_mesh_file -solidfile $solid_file
-    $adaptobject LoadMesh -file $vtu_mesh_file
-    $adaptobject SetAdaptOptions -flag strategy -value 2
-    $adaptobject SetAdaptOptions -flag metric_option -value 2
-    $adaptobject SetAdaptOptions -flag ratio -value $reductionRatio
-    $adaptobject SetAdaptOptions -flag hmin -value $maxRefineFactor
-    $adaptobject SetAdaptOptions -flag hmax -value $maxCoarseFactor
-    $adaptobject SetAdaptOptions -flag instep -value 0
-    $adaptobject SetAdaptOptions -flag outstep -value $adapt_tstep
-    $adaptobject SetMetric -input $vtu_mesh_file
-    $adaptobject SetupMesh
-    $adaptobject RunAdaptor
-    $adaptobject GetAdaptedMesh
-    $adaptobject TransferSolution
-    $adaptobject WriteAdaptedSolution -file $out_solution
-    $adaptobject WriteAdaptedMesh -file $out_mesh_file
-    mesh = '/adapt/internal/meshobject'
-    # ------------------------------------------------------------------------------------- #
+    # adapt_newObject(adaptobject)
+    #
+    # # ------------------------- Don't know how to do any of these ------------------------- # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK how to replicate any of these
+    # $adaptobject CreateInternalMeshObject(sms_mesh_file, solid_file)
+    # $adaptobject LoadMesh(vtu_mesh_file)
+    # $adaptobject SetAdaptOptions(strategy, 2)
+    # $adaptobject SetAdaptOptions(metric_option, 2)
+    # $adaptobject SetAdaptOptions(ratio, reductionRatio)
+    # $adaptobject SetAdaptOptions(hmin, maxRefineFactor)
+    # $adaptobject SetAdaptOptions(hmax, maxCoarseFactor)
+    # $adaptobject SetAdaptOptions(instep, 0)
+    # $adaptobject SetAdaptOptions(outstep, adapt_tstep)
+    # $adaptobject SetMetric(vtu_mesh_file)
+    # $adaptobject SetupMesh()
+    # $adaptobject RunAdaptor()
+    # $adaptobject GetAdaptedMesh()
+    # $adaptobject TransferSolution()
+    # $adaptobject WriteAdaptedSolution(out_solution)
+    # $adaptobject WriteAdaptedMesh(out_mesh_file)
+    # mesh = '/adapt/internal/meshobject'
+    # # ------------------------------------------------------------------------------------- #
 
     #Read model file as a solid object to write out meshsim mesh related files
     try:

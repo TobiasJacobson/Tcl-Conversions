@@ -47,3 +47,5 @@ def group_autoload():
 def seg3d_autoload():
     gFilenames = []
     grpdir = gFilenames(groups_dir)
+
+# end of seg3d_autoload

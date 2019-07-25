@@ -5,7 +5,7 @@
 def createPREOPgrpKeepSel_AM():
     createPREOPgrpKeptSelections = []
     symbolicName = ''
-    # createPREOPgrpKeptSelections = symbolicName[createPREOPgrpCurLB] get 0 end] # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Don't know the argument inputs
+    createPREOPgrpKeptSelections = [symbolicName(createPREOPgrpCurLB) get 0 end] # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Don't know the get 0 end syntax
 
 # end of createPREOPgrpKeepSel_AM
 
@@ -37,7 +37,7 @@ def createPREOPmodelCreateModel_AM():
 
 
     # for convenience, we offer to make any missing solid models for the
-    # the user.  In general, people shouldn't do this, but what can you do?
+    # the user. In general, people shouldn't do this, but what can you do?
     for i in createPREOPgrpKeptSelections:
         cursolid = ""
         try:
@@ -121,4 +121,4 @@ import sys
 from sv import *
 
 createPREOPgrpKeepSel_AM()
-createPREOPmodelCreateModel_AM():
+createPREOPmodelCreateModel_AM()

@@ -7,7 +7,7 @@ import os
 import sys
 
 def GenSolid():
-    nmodel_ii = 1
+    nmodel_ii = 0
     model_type = 'indiv2'
     scaleFactor = 1.0 # scale factor for final geometry
 
@@ -24,14 +24,14 @@ def GenSolid():
         groupAddress[groupName] = top + '/' + groupName
 
     # ------- BOILERPLATE : INCLUDE GLOBAL VARIABLES
-    gRen3d = None # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables
-    gRen3dCopies = None # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables
+    gRen3d = None # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of this
+    gRen3dCopies = None # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of this
     gPathBrowser = []
     gOptions = []
     gFilenames = []
     symbolicName = ''
     createPREOPgrpKeptSelections = []
-    # createPREOPgrpCurLB set gRen3dCopies 1 # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Complete initialization of these variables
+    # createPREOPgrpCurLB set gRen3dCopies 1 # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Need more clarification
     gObjects = []
     gLoftedSolids = [] # Not used anywhere I can see
 
@@ -60,7 +60,7 @@ def GenSolid():
         else:
             group_create(groupName)
 
-    # ---- RENDERING BOILERPLATE # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Not sure if these are right
+    # ---- RENDERING BOILERPLATE
     gPathBrowser[ren] = gRenWin_3D_ren1
     gPathBrowser[align_mtd_radio] = dist
     gPathBrowser[solid_opacity] = 1
@@ -73,7 +73,7 @@ def GenSolid():
     for groupName in allGroups:
         print(groupName)
         gPathBrowser[currGroupName] = groupName
-        nateAFLB() # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Find alternative to nateAFLB in openSource simVascular
+        nateAFLB() # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Find alternative to nateAFLB in openSource simVascular, or could I still use it since its only used by Jongmin??
 
     # Connecting_groups
     createPREOPgrpKeptSelections = allGroups
@@ -93,7 +93,7 @@ def GenSolid():
     createPREOPmodelSaveModel()
 
     print("Save SolidModel.")
-    preop_solid WriteNative -file $::solidName # <><><><><><><><><><><><><><><><><><><><><><><><><><> # IDK what to do here, not sure of function arguments
+    preop_solid = WriteNative(solidName)
     preop_solid()
     print("Tagging faces.")
     faceids[preop_solid] = GetFaceIds
@@ -107,7 +107,6 @@ def GenSolid():
     gFilenames[blend_file] = blendFile +'.blends'
     gFilenames[blend_solid_file] = gobjects(blend_solid)
     gFilenames[preblend_solid_file] = solidName +'.xmt_txt'
-
 
     # AV - commented due to blending error -_-
      # guiFNMloadSolidModel preblend_solid_file preblend_solid
@@ -123,9 +122,14 @@ def GenSolid():
         repos_delete(gobjects[blend_solid])
     except:
         print('repos_delete cast an error')
-    solid_readNative -file $gobjects(blend_solid).xmt_txt -obj $gobjects(blend_solid) # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Need more clarification
-    $gobjects(blend_solid) Scale -factor $scaleFactor # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Need more clarification
-    $gobjects(blend_solid) WriteNative -file abgsc # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Need more clarification
+    file = gobjects(blend_solid) + '.xmt_txt'
+    obj = gobjects(blend_solid)
+    solid_readNative(file, obj)
+    $gobjects(blend_solid) Scale(scaleFactor) # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Need more clarification
+    $gobjects(blend_solid) Scale -factor $scaleFactor
+    $gobjects(blend_solid) WriteNative(abgsc) # <><><><><><><><><><><><><><><><><><><><><><><><><><> # Need more clarification
+    $gobjects(blend_solid) WriteNative -file abgsc
+
     try:
         os.remove(gobjects(blend_solid) +'xmt_txt')
     except:
